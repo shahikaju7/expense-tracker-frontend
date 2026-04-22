@@ -194,10 +194,9 @@ ng serve
 
 | Dashboard | Upload Receipt | Stats |
 |-----------|---------------|-------|
-| <img width="1869" height="602" alt="image" src="https://github.com/user-attachments/assets/d47d4ce2-f67c-44c3-90f8-4d4f480ea220" />
- | <img width="1894" height="842" alt="image" src="https://github.com/user-attachments/assets/1898c077-48c8-4aa3-b3eb-7f1f865b265b" />
- |<img width="1895" height="497" alt="image" src="https://github.com/user-attachments/assets/ce383454-fe74-4b56-9241-11fb6e05f015" />
- |
+| <img width="1869" height="602" alt="image" src="https://github.com/user-attachments/assets/d47d4ce2-f67c-44c3-90f8-4d4f480ea220" /> |
+ | <img width="1894" height="842" alt="image" src="https://github.com/user-attachments/assets/1898c077-48c8-4aa3-b3eb-7f1f865b265b" /> |
+ |<img width="1895" height="497" alt="image" src="https://github.com/user-attachments/assets/ce383454-fe74-4b56-9241-11fb6e05f015" /> |
 
 ---
 
