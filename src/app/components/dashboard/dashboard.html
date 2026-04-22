@@ -1,0 +1,137 @@
+<div style="max-width: 1100px; margin: 32px auto; padding: 0 24px;">
+
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-bottom: 28px;">
+
+    <div style="background: white; border-radius: 12px; padding: 20px;
+      border: 1px solid #e2e8f0;">
+      <div style="font-size: 13px; color: #64748b; margin-bottom: 8px;">
+        Total Expenses
+      </div>
+      <div style="font-size: 28px; font-weight: 700; color: #1e293b;">
+        ₹{{ totalAmount.toFixed(2) }}
+      </div>
+      <div style="font-size: 12px; color: #6366f1; margin-top: 4px;">
+        All time
+      </div>
+    </div>
+
+    <div style="background: white; border-radius: 12px; padding: 20px;
+      border: 1px solid #e2e8f0;">
+      <div style="font-size: 13px; color: #64748b; margin-bottom: 8px;">
+        This Month
+      </div>
+      <div style="font-size: 28px; font-weight: 700; color: #10b981;">
+       ₹{{ thisMonthAmount.toFixed(2) }}
+      </div>
+      <div style="font-size: 12px; color: #10b981; margin-top: 4px;">
+        Current month
+      </div>
+    </div>
+
+    <div style="background: white; border-radius: 12px; padding: 20px;
+      border: 1px solid #e2e8f0;">
+      <div style="font-size: 13px; color: #64748b; margin-bottom: 8px;">
+        Total Receipts
+      </div>
+      <div style="font-size: 28px; font-weight: 700; color: #3b82f6;">
+        {{ totalCount }}
+      </div>
+      <div style="font-size: 12px; color: #3b82f6; margin-top: 4px;">
+        Scanned
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background: white; border-radius: 12px;
+    border: 1px solid #e2e8f0; padding: 24px;">
+
+    <div style="display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 20px;">
+      <h2 style="font-size: 16px; font-weight: 600; color: #1e293b; margin: 0;">
+        Recent Expenses
+      </h2>
+      <a routerLink="/upload" style="padding: 8px 16px; background: #6366f1;
+        color: white; border-radius: 8px; text-decoration: none;
+        font-size: 13px; font-weight: 500;">
+        + Upload Receipt
+      </a>
+    </div>
+
+    <div *ngIf="loading" style="text-align: center; padding: 40px;
+      color: #94a3b8;">
+      Loading expenses...
+    </div>
+
+    <div *ngIf="!loading && expenses.length === 0"
+      style="text-align: center; padding: 40px; color: #94a3b8;">
+      <div style="font-size: 48px; margin-bottom: 12px;">🧾</div>
+      <div style="font-size: 15px;">No expenses yet</div>
+      <div style="font-size: 13px; margin-top: 4px;">
+        Upload a receipt to get started!
+      </div>
+    </div>
+
+    <table *ngIf="!loading && expenses.length > 0"
+      style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <th style="text-align: left; font-size: 12px; color: #94a3b8;
+            font-weight: 500; padding: 0 0 12px;">Vendor</th>
+          <th style="text-align: left; font-size: 12px; color: #94a3b8;
+            font-weight: 500; padding: 0 0 12px;">Amount</th>
+          <th style="text-align: left; font-size: 12px; color: #94a3b8;
+            font-weight: 500; padding: 0 0 12px;">Date</th>
+          <th style="text-align: left; font-size: 12px; color: #94a3b8;
+            font-weight: 500; padding: 0 0 12px;">Category</th>
+          <th style="text-align: left; font-size: 12px; color: #94a3b8;
+            font-weight: 500; padding: 0 0 12px;">Receipt</th>
+          <th style="text-align: right; font-size: 12px; color: #94a3b8;
+            font-weight: 500; padding: 0 0 12px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let expense of expenses"
+          style="border-bottom: 1px solid #f8fafc;">
+          <td style="padding: 14px 0; font-size: 14px; font-weight: 500;
+            color: #1e293b;">
+            {{ expense.vendor }}
+          </td>
+          <td style="padding: 14px 0; font-size: 14px; color: #1e293b;
+            font-weight: 600;">
+            {{ expense.currency || '$' }}{{ parseFloat(expense.amount).toFixed(2) }}
+          </td>
+          <td style="padding: 14px 0; font-size: 13px; color: #64748b;">
+            {{ expense.date }}
+          </td>
+          <td style="padding: 14px 0;">
+            <select (change)="updateCategory(expense, $event)"
+              style="padding: 4px 8px; border: 1px solid #e2e8f0;
+              border-radius: 6px; font-size: 12px; cursor: pointer;"
+              [value]="expense.category">
+              <option *ngFor="let cat of categories" [value]="cat">
+                {{ cat }}
+              </option>
+            </select>
+          </td>
+          <td style="padding: 14px 0;">
+            <a *ngIf="expense.image_url" [href]="expense.image_url"
+              target="_blank" style="font-size: 12px; color: #6366f1;
+              text-decoration: none;">
+              View
+            </a>
+          </td>
+          <td style="padding: 14px 0; text-align: right;">
+            <button (click)="deleteExpense(expense.id)"
+              style="padding: 4px 10px; background: #fef2f2; color: #ef4444;
+              border: 1px solid #fecaca; border-radius: 6px;
+              font-size: 12px; cursor: pointer;">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
